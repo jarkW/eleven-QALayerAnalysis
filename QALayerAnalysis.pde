@@ -67,7 +67,10 @@ int nextAction;
 public void setup() 
 {    
     // Set size of Processing window
-    size(1500, 1000);
+    //size(1500, 1000);
+    size(1200, 800);
+    
+    background(BACKGROUND);
     
     // Default the output text box for the case where error detected before street etc loaded
     textBoxX = 50;
@@ -79,10 +82,6 @@ public void setup()
     {
         nextAction = USER_INPUT_CONFIG_FOLDER;
         selectInput("Select QALayerAnalysis_config.json in working folder:", "configJSONFileSelected");
-        if (configFolderErrStr.length() > 0)
-        {            
-            nextAction = EXIT_ERROR;
-        }
     }
     else
     {
@@ -95,8 +94,7 @@ public void draw()
     String s;
     String errMsg;
     
-    //println("Next action = " + nextAction);
-    
+    //println("Next action = " + nextAction);    
     switch (nextAction)
     {
         case IDLE:
@@ -106,7 +104,11 @@ public void draw()
         case USER_INPUT_CONFIG_FOLDER:
             // Need to get user to input valid location of QALayerAnalysis_config.json
             // Come here whilst wait for user to select the input
-            if (workingDir.length() > 0)
+            if (configFolderErrStr.length() > 0)
+            {  
+                nextAction = EXIT_ERROR;
+            }
+            else if (workingDir.length() > 0)
             {
                 nextAction = READ_CONFIG_FILE;
             }
