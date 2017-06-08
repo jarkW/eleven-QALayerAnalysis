@@ -30,7 +30,6 @@ class ConfigInfo {
     boolean readConfigData()
     {
         JSONObject json;
-        File myDir;
         File file;
         
         // Open the config file
