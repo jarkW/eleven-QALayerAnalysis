@@ -651,8 +651,8 @@ class PixelInfo
     String getOrigInfo()
     {
         colorMode(HSB, 360, 100, 100);
-        String s = "ORIGINAL (x,y=" + x + "," + y + ") Ref snap RGB=" + int(snapR) + ":" + int(snapG) + ":" + int(snapB) + "HSV=" + int(hue(snapColor)) + ":" + int(saturation(snapColor)) + ":" + int(brightness(snapColor)) + " 0x" + hex(snapColor, 6);
-        s = s + "(x,y=" + x + "," + y + ") QA snap RGB=" + int(myR) + ":" + int(myG) + ":" + int(myB) + "HSV=" + int(hue(myColor)) + ":" + int(saturation(myColor)) + ":" + int(brightness(myColor)) + " 0x" + hex(myColor, 6);     
+        String s = "ORIGINAL (x,y=" + x + "," + y + ") Ref snap RGB=" + int(snapR) + ":" + int(snapG) + ":" + int(snapB) + " HSV=" + int(hue(snapColor)) + ":" + int(saturation(snapColor)) + ":" + int(brightness(snapColor)) + " 0x" + hex(snapColor, 6);
+        s = s + "(x,y=" + x + "," + y + ") QA snap RGB=" + int(myR) + ":" + int(myG) + ":" + int(myB) + " HSV=" + int(hue(myColor)) + ":" + int(saturation(myColor)) + ":" + int(brightness(myColor)) + " 0x" + hex(myColor, 6);     
         s = s + "   Delta RGB=" + int(origDeltaRGB);
         colorMode(RGB, 255, 255, 255);
         return s;
