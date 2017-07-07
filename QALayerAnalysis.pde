@@ -315,7 +315,8 @@ void displayInfo(String msg, boolean overwrite)
 
 boolean openOutputFile()
 {
-    // open the file ready for writing    
+    // open the file ready for writing  
+    // Append if the flag is set, otherwise restart the output file afresh
     try 
     {
         File file =new File(configInfo.outputFile);
@@ -325,7 +326,7 @@ boolean openOutputFile()
           file.createNewFile();
         }
  
-        FileWriter fw = new FileWriter(file, true);///true = append
+        FileWriter fw = new FileWriter(file, configInfo.readAppendToOutputFile());///true = append
         BufferedWriter bw = new BufferedWriter(fw);
         output = new PrintWriter(bw);
     }
@@ -501,6 +502,10 @@ void printHeaderInfo()
     String s;
     printLine("");
     printLine(" **************************************************************************************************************************************");
+    
+    s = nf(day(),2) + "/" + nf(month(),2) + "/" + year() + "   " + nf(hour(),2) + ":" + nf(minute(),2) + ":" + nf(second(),2);
+    printLine(s);
+       
     s = "Analysing layer " + configInfo.readLayerName() + " for street " + streetName; 
     if (configInfo.readDebugFlag())
     {
@@ -651,8 +656,8 @@ class PixelInfo
     String getOrigInfo()
     {
         colorMode(HSB, 360, 100, 100);
-        String s = "ORIGINAL (x,y=" + x + "," + y + ") Ref snap RGB=" + int(snapR) + ":" + int(snapG) + ":" + int(snapB) + " HSV=" + int(hue(snapColor)) + ":" + int(saturation(snapColor)) + ":" + int(brightness(snapColor)) + " 0x" + hex(snapColor, 6);
-        s = s + "(x,y=" + x + "," + y + ") QA snap RGB=" + int(myR) + ":" + int(myG) + ":" + int(myB) + " HSV=" + int(hue(myColor)) + ":" + int(saturation(myColor)) + ":" + int(brightness(myColor)) + " 0x" + hex(myColor, 6);     
+        String s = "ORIGINAL (x,y=" + x + "," + y + ") \tRef snap RGB=" + int(snapR) + ":" + int(snapG) + ":" + int(snapB) + " HSV=" + int(hue(snapColor)) + ":" + int(saturation(snapColor)) + ":" + int(brightness(snapColor)) + " 0x" + hex(snapColor, 6);
+        s = s + " \tQA snap RGB=" + int(myR) + ":" + int(myG) + ":" + int(myB) + " HSV=" + int(hue(myColor)) + ":" + int(saturation(myColor)) + ":" + int(brightness(myColor)) + " 0x" + hex(myColor, 6);     
         s = s + "   Delta RGB=" + int(origDeltaRGB);
         colorMode(RGB, 255, 255, 255);
         return s;

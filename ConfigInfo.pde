@@ -9,6 +9,7 @@ class ConfigInfo {
     String GFileName;
     int endLoopCondition;
     String layerName;
+    boolean appendToOutputFile;
     //boolean updateGFile; Not yet implemented
     boolean debugFlag;  
 
@@ -81,7 +82,14 @@ class ConfigInfo {
             // Default to output.txt in the Processing directory - but tell user
             outputFile = sketchPath("output.txt");
             displayError("Missing output_file field in QALayerAnalysis_config.json file - defaulting to " + outputFile);
-        }       
+        }  
+
+        // By default it will append to the output file, rather than starting over
+        appendToOutputFile = Utils.readJSONBool(json, "append_to_output_file", false); 
+        if (!Utils.readOkFlag())
+        {
+            appendToOutputFile = true;
+        }
      
         GFileName = Utils.readJSONString(json, "street_G_file", true); 
         if (!Utils.readOkFlag() || mySnapPath.length() == 0)
@@ -166,6 +174,11 @@ class ConfigInfo {
     public String readOutputFile()
     {
         return outputFile;
+    }
+    
+    public boolean readAppendToOutputFile()
+    {
+        return appendToOutputFile;
     }
 
     public String readGFileName()
